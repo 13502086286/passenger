@@ -35,7 +35,7 @@
 
             $("#tb").bootstrapTable({
                 locale: 'zh-cn',
-                url: 'http://localhost:8347/findrailway',
+                url: 'http://localhost:8347/program_ssm_war/findrailway',
                 method: 'post',
                 pagination: true,
                 singleSelect: false,
@@ -47,6 +47,12 @@
 
                     };
                 },
+                responseHandler: function (d) {//后台返给前台数据
+                    return {
+                        "total": d.total,//一共多少行
+                        "rows": d.rows//数据行
+                    };
+                },
 
                 columns: [
                     {checkbox: true},//加一列用于选择
@@ -54,18 +60,23 @@
                     {field: 'idnum', title: '证件号码', halign: 'center'},
 
 
-
-
+                    {
+                        //放在最后选中一行
+                        title: '操作',
+                        halign: 'center',//居中对齐
+                        align: 'right',//左对齐
+                        formatter: function (value, row, index) {//把按钮绑上
+                            return "<button onclick='myedit(\"" + row.t_user_id + "\")' class='btn btn-warning'>编辑</button><button class='btn btn-danger'>删除</button>";
+                        }
+                    }
                 ],
                 onClickRow: function (row) {
                     //bootbox.alert(row.bid);
-                    gbid = row.id_num;
+                    gbid = row.t_user_id;
                 }
             });
         }
-        function ceshi() {
-            location.href=" "
-        }
+
 
 
     </script>

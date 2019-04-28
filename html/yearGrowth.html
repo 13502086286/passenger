@@ -35,7 +35,7 @@
 
             $("#tb").bootstrapTable({
                 locale: 'zh-cn',
-                url: 'http://localhost:8347/不文明旅客/ ',
+                url: 'http://localhost:8347/program_ssm_war/ ',
                 method: 'post',
                 pagination: true,
                 singleSelect: false,
@@ -50,9 +50,10 @@
                 },
 
                 columns: [
+                    {field: ' year1', title: '年份1', halign: 'center'},
+                    {field: ' year2', title: '年份2', halign: 'center'},
 
-
-                    {field: 'number', title: '年份2较年份1变化人数', halign: 'center'},
+                    {field: 'number', title: '年份2较年份1变化情况', halign: 'center'},
                     ],
 
 

@@ -30,24 +30,50 @@
 
 
         function login(){
-       /*     location.href="homeUser.html";*/
+            location.href="homeUser.html";
             var username =document.getElementById("username").value;
             var password =document.getElementById("password").value;
 
-            $.post(
+
+
+            $.ajax({ //post也可
+                url: 'http://localhost:8347/program_ssm_war/Login',
+                data: {    username:username,
+                    password:password },
+                dataType: 'json',
+                success: function(json){
+                    alert(json);
+                    // var state =res.toString();
+                    if(json==1){
+                        location.href="index.html";
+                    }
+                    else if(json=="2"){
+                        location.href="homeUser.html";
+                    }
+
+                    else {
+                        alert("账号密码错误");
+                    } //对于获取的数据执行相关的操作，如：绑定、显示等
+                }
+            });
+
+       /*     $.post(
 
                 'http://localhost:8347/program_ssm_war/Login',
                 {
                     username:username,
                     password:password
                 },
-                function (res) {
-                    alert(res.toString()+'55555');
+
+
+                function (re) {
+
+                    alert(JSON.stringify(re));
                    // var state =res.toString();
-                    if(res==1){
+                    if(re==1){
                         location.href="index.html";
                     }
-                    else if(state=="0"){
+                    else if(state=="2"){
                         location.href="homeUser.html";
                     }
 
@@ -57,7 +83,7 @@
 
                 }
 
-            )
+            )*/
         }
 
         $(document).ready(function (){

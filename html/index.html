@@ -23,19 +23,20 @@
         var gbid="";
         $(function () {//入口函数
             moment.locale("zh-cn");
-
+            $("select").selectpicker({width: '150px', noneSelectedText: "请选择..."});
 
             $("#btnSearch").click(function () {
                 myTable();
 
             });
         });
+
         function myTable() {//删除后直接刷新
             $("#tb").bootstrapTable("destroy");
 
             $("#tb").bootstrapTable({
                 locale: 'zh-cn',
-                url:  'http://localhost:8347/find',
+                url:  'http://localhost:8347/program_ssm_war/findcaac',
                 method: 'post',
                 pagination: true,
                 singleSelect: false,

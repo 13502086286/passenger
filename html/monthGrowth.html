@@ -35,7 +35,7 @@
 
             $("#tb").bootstrapTable({
                 locale: 'zh-cn',
-                url: 'http://localhost:8347/find ',
+                url: 'http://localhost:8347/program_ssm_war/ ',
                 method: 'post',
                 pagination: true,
                 singleSelect: false,
@@ -51,8 +51,10 @@
 
                 columns: [
 
+                    {field: 'month1 ', title: '月份1', halign: 'center'},
+                    {field: 'month2 ', title: '月份2', halign: 'center'},
 
-                    {field: 'number', title: '月份2较月份1变化人数', halign: 'center'},
+                    {field: 'number', title: '月份2较月份1变化情况', halign: 'center'},
                 ],
 
 
