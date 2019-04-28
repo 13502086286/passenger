@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>民航失信人数年份统计</title>
+
+    <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css">
+
+    <script src="../js/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../js/bower_components/bootbox/bootbox.js"></script>
+    <script src="../js/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../js/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+    <script src="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+    <script src="../js/bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script src="../js/bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script language="JavaScript">
+        var gbid="";
+        $(function () {//入口函数
+            moment.locale("zh-cn");
+
+
+            $("#btnSearch").click(function () {
+                myTable();
+
+            });
+        });
+        function myTable() {//删除后直接刷新
+            $("#tb").bootstrapTable("destroy");
+
+            $("#tb").bootstrapTable({
+                locale: 'zh-cn',
+                url: 'http://localhost:8347/find ',
+                method: 'post',
+                pagination: true,
+                singleSelect: false,
+                clickToSelect: false,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                queryParams:function (param) {
+                    return {
+                        'month1':$("#txtmanth1").val(),
+                        'month2':$("#txtmonth2").val()
+
+                    };
+                },
+
+                columns: [
+
+
+                    {field: 'number', title: '月份2较月份1变化人数', halign: 'center'},
+                ],
+
+
+
+            });
+        }
+        function ceshi() {
+            location.href=" "
+        }
+
+
+    </script>
+
+
+</head>
+<body style="background: url(/../image/渐变.jpg)">
+<div class="container-fluid">
+    <div class="row" >
+        <div class="col-md-12 ">
+            <h1 style="float: left; margin-top: -10px;">
+                <span style="font-size: 45px;margin-left: 400px ;position:relative; font-family:'隶书';"><font color="red">民航失信人数年份统计</font></span>
+            </h1>
+        </div>
+    </div>
+    <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+    <div class="row col-md-12 form-inline"style="margin-left: 355px"><!--一行显示-->
+        <div class="form-group">
+            <label class="control-label" for="spanmonth1">月份1：</label>
+            <span id="spanmonth1">
+                   <input type="text"   class="form-control" id="txtmonth1" >
+                </span>
+        </div>
+
+        <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+        <div class="row col-md-12 form-inline"><!--一行显示-->
+            <div class="form-group">
+                <label class="control-label" for="spanmonth2">月份2：</label>
+                <span id="spanmonth2">
+                   <input type="text"   class="form-control" id="txtmonth2" >
+                </span>
+            </div>
+
+
+            <div class="form-group">
+                <button class="btn btn-info" id="btnSearch">
+                    <span class="glyphicon glyphicon-search"></span>
+                    统计
+                </button>
+            </div>
+        </div>
+
+        <div class="row  col-md-6 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+
+        <div class="row col-md-6"style="margin-left: -700px;margin-top: 15px">
+            <table id="tb"></table>
+        </div>
+
+    </div>
+
+</div>
+
+
+</body>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+
+    <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css">
+
+    <script src="../js/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../js/bower_components/bootbox/bootbox.js"></script>
+    <script src="../js/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../js/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"> </script>
+    <script src="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+    <script src="../js/bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script src="../js/bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+
+    <script language="JavaScript">
+        $(function () {
+            $.getJSON("menuListUser.json",function (d) {
+                $("#tree").treeview({
+                    data:d,
+                    selectedIcon:"glyphicon glyphicon-chevron-right",
+                    selectedBackColor:"#6c9bd2",
+                    backColor:" #d9edf7",
+                    expandIcon:"glyphicon glyphicon-plane",
+
+
+
+                    onNodeSelected:function (event,data) {
+                        $("#breadcrumb").html("<li><a href='first.html' target='contentframe'>首页</a></li><li>"+data.text+"</li>");
+                        $("#contentframe").attr("src",data.href);
+
+                    }
+                });
+            });
+        });
+        $(function () {
+            $.post(
+                "http://localhost:8347/不文明旅客/PassServlet",
+                {},
+                function (result) {
+              
+                    var name =result.toString();
+                    $("#user").html(name);
+                    
+                }
+            )
+
+            $("#btnExit").click(function () {
+                location.href="login.html";
+
+            });
+
+        });
+    </script>
+</head>
+
+
+
+<body>
+<div class="container-fluid"style="margin-left: -15px">
+    <div style="position:absolute;z-index:-1;width:100%;height:100%;">
+
+        <img src="../image/渐变.jpg" width="100%" height="150%"/></div>
+
+    <div class="row"style="background: url(/../image/1.jpg);height:160px;margin-top: -30px">
+        <div class="col-md-12 page-header">
+            <h1 style="float: left;margin-top: 0px;">
+                <img src="../image/6.jpg" height="81" width="192"/><span  style="margin:20px 0px 10px 5px;color:black;font-size: 40px;font-family:'华文楷体'">
+							不文明旅客查询系统&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </h1>
+            <div style="float:right;margin-top: 60px;margin-right: 50px;vertical-align: middle">
+                <span class="glyphicon glyphicon-user"><b><big>欢迎您</big></b></span><!--<span id="currentUser"><label id="user"></label></span>-->
+                <button id="btnExit" class="btn btn-danger"><span class="glyphicon glyphicon-off"></span> 注销</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- 左侧的数-->
+        <div class="col-md-2"style="height: 100px">
+            <div id="tree"></div>
+        </div>
+
+        <!-- 右侧的工作台-->
+        <div class="col-md-10">
+            <!--面包屑导航栏 -->
+            <div class="col-md-12"  style="margin-top: -10px">
+                <ol class="breadcrumb" id="breadcrumb">
+                    <li>
+                        <a href="first.html" target="contentframe"><span class="glyphicon glyphicon-home"></span>首页</a>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe id="contentframe" name="contentframe"
+                                class="embed-responsive-item"
+                                src="first.html">
+
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+</html>

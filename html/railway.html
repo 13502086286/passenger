@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>铁路失信</title>
+
+    <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css">
+
+    <script src="../js/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../js/bower_components/bootbox/bootbox.js"></script>
+    <script src="../js/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../js/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+    <script src="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+    <script src="../js/bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script src="../js/bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script language="JavaScript">
+        var gbid="";
+        $(function () {//入口函数
+            moment.locale("zh-cn");
+
+
+            $("#btnSearch").click(function () {
+                myTable();
+
+            });
+        });
+        function myTable() {//删除后直接刷新
+            $("#tb").bootstrapTable("destroy");
+
+            $("#tb").bootstrapTable({
+                locale: 'zh-cn',
+                url: 'http://localhost:8347/findrailway',
+                method: 'post',
+                pagination: true,
+                singleSelect: false,
+                clickToSelect: false,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                queryParams:function (param) {
+                    return {
+                        'name':$("#txtUserName").val()
+
+                    };
+                },
+
+                columns: [
+                    {checkbox: true},//加一列用于选择
+                    {field: 'name', title: '旅客姓名', halign: 'center'},
+                    {field: 'idnum', title: '证件号码', halign: 'center'},
+
+
+
+
+                ],
+                onClickRow: function (row) {
+                    //bootbox.alert(row.bid);
+                    gbid = row.id_num;
+                }
+            });
+        }
+        function ceshi() {
+            location.href=" "
+        }
+
+
+    </script>
+
+
+</head>
+
+<body style="background: url(/../image/渐变.jpg)">
+<div class="container-fluid">
+    <div class="row" >
+        <div class="col-md-12 ">
+            <h1 style="float: left; margin-top: -10px;">
+                <span style="font-size: 45px;margin-left: 400px ;position:relative; font-family:'隶书';"><font color="red">限制铁路严重失信人公示</font></span>
+            </h1>
+        </div>
+    </div>
+    <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+    <div class="row col-md-12 form-inline"><!--一行显示-->
+        <div class="form-group">
+            <label class="control-label" for="spanUserName">用户姓名：</label>
+            <span id="spanUserName">
+                   <input type="text"   class="form-control" id="txtUserName" >
+                </span>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+        <div class="form-group">
+            <button class="btn btn-info" id="btnSearch">
+                <span class="glyphicon glyphicon-search"></span>
+                查询
+            </button>
+        </div>
+    </div>
+
+    <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+
+    <div class="row col-md-12">
+        <table id="tb"></table>
+    </div>
+
+</div>
+
+
+
+</body>
+</html>
