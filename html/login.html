@@ -36,14 +36,15 @@
 
             $.post(
 
-                'http://localhost:8347/Login',
+                'http://localhost:8347/program_ssm_war/Login',
                 {
                     username:username,
                     password:password
                 },
                 function (res) {
-                    var state =res.toString();
-                    if(state=="1"){
+                    alert(res.toString()+'55555');
+                   // var state =res.toString();
+                    if(res==1){
                         location.href="index.html";
                     }
                     else if(state=="0"){
