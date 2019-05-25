@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>管理员主页</title>
+    <title>售票主页</title>
 
     <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../js/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
@@ -22,7 +22,7 @@
 
     <script language="JavaScript">
         $(function () {
-            $.getJSON("homeUser.json",function (d) {
+            $.getJSON("homeSp.json",function (d) {
                 $("#tree").treeview({
                     data:d,
                     selectedIcon:"glyphicon glyphicon-chevron-right",
@@ -45,10 +45,10 @@
                 "http://localhost:8347/program_ssm_war/ ",
                 {},
                 function (result) {
-              
+
                     var name =result.toString();
                     $("#user").html(name);
-                    
+
                 }
             )
 

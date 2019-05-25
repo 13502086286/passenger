@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>民航失信人数年份统计</title>
+
+    <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="../css/style.css" media="screen" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+
+    <script src="../js/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../js/bower_components/bootbox/bootbox.js"></script>
+    <script src="../js/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../js/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+    <script src="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+    <script src="../js/bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script src="../js/bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/echarts.js"></script>
+
+    <script language="JavaScript">
+        function hh() {
+            var year = document.getElementById("year").value;
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8347/program_ssm_war/tongji2",
+                dataType: "json",
+                data:{year:year},
+
+            success: function (data) {
+//指定图标的配置和数据
+                var option = {
+                    title: {
+                        text: '时间人数统计'
+                    },
+                    //----------------   图例 legend  -----------------
+                    legend: {
+                        type:'plain',               //----图例类型，默认为'plain'，当图例很多时可使用'scroll'
+                        top:'1%',                   //----图例相对容器位置,top\bottom\left\right
+                        selected:{
+                            '人数':true,          //----图例选择,图形加载出来会显示选择的图例，默认为true
+                        },
+                        textStyle:{                 //----图例内容样式
+                            color:'#fff',               //---所有图例的字体颜色
+                            //backgroundColor:'black',  //---所有图例的字体背景色
+                        },
+                        tooltip:{                   //图例提示框，默认不显示
+                            show:true,
+                            color:'red',
+                        },
+                        data:[                      //----图例内容
+                            {
+                                name:'人数',
+                                icon:'circle',          //----图例的外框样式
+                                textStyle:{
+                                    color:'#fff',       //----单独设置某一个图例的颜色
+                                    //backgroundColor:'black',//---单独设置某一个图例的字体背景色
+                                }
+                            }
+                        ],
+                    },
+
+
+                    tooltip: {},
+                    legend: {
+                        data: ['月份']
+                    },
+                    xAxis: {
+                        nameTextStyle:{             //---坐标轴名称样式
+                            color:"#005",
+                            padding:[5,0,0,-5], //---坐标轴名称相对位置
+                        },
+                        name:'月份',              //---轴名称
+                        data: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],
+
+                    },
+                    yAxis: {
+                        nameTextStyle:{             //---坐标轴名称样式
+                            color:"#834",
+                            padding:[5,0,0,-5], //---坐标轴名称相对位置
+                        },
+                        name:'人数',              //---轴名称
+
+                    },
+                    series: [{
+                        name: '人数',
+                        type: 'bar',
+                        data: data
+                    }]
+                };
+
+                var myChart = echarts.init(document.getElementById('chartmain'));
+
+
+                myChart.setOption(option);
+
+            }
+        })
+        }
+
+
+        var gbid = "";
+        $(function () {//入口函数
+            moment.locale("zh-cn");
+            $("#btnSearch").click(function () {
+                myTable();
+            });
+
+
+        function myTable() {//删除后直接刷新
+            $("#tb").bootstrapTable("destroy");
+            $("#tb").bootstrapTable({
+                locale: 'zh-cn',
+                url: 'http://localhost:8347/program_ssm_war/tongji',
+                method: 'post',
+                pagination: true,
+                singleSelect: false,
+                clickToSelect: false,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+
+
+                queryParams: function (param) {
+                    return {
+                        date1:$("#dd").val(),
+                        date2:$("#ss").val()
+                    };
+                },
+
+
+                columns: [
+                    {field: 'data', title: '该时间段失信人数', halign: 'center'},
+                ],
+            });
+        }})
+
+
+    </script>
+
+</head>
+<body style="background: url(/../image/渐变.jpg)">
+<div class="container-fluid" style="margin-left: 200px">
+    统计开始时间：<input id="dd" type="text"></input>
+    <script type="text/javascript">
+        $("#dd").datebox({
+            required: true
+        });
+    </script>
+    <script type="text/javascript">
+        $("#dd").datebox({
+            onSelect: function (date) {
+                alert("统计开始时间：" + date.getFullYear() + "年" + (date.getMonth() + 1) + "月" + date.getDate() + "日");
+            }
+        });
+
+    </script>
+
+
+    统计结束时间：<input id="ss" type="text"></input>
+    <script type="text/javascript">
+        $("#ss").datebox({
+            required: true
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("#ss").datebox({
+            onSelect: function (date1) {
+                alert("统计结束时间：" + date1.getFullYear() + "年" + (date1.getMonth() + 1) + "月" + date1.getDate() + "日");
+            }
+        });
+    </script>
+
+</div>
+
+<div class="container-fluid">
+
+    <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+    <div class="row col-md-12 form-inline" style="margin-left: 455px"><!--一行显示-->
+        <div class="row col-md-12 form-inline"><!--一行显示-->
+            <div class="form-group">
+                <button class="btn btn-info" id="btnSearch">
+                    <span class="glyphicon glyphicon-search"></span>
+                    统计
+                </button>
+            </div>
+        </div>
+        <div class="row  col-md-6 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+        <div class="row col-md-6" style="margin-left: -1000px;margin-top: 15px">
+            <table id="tb"></table>
+        </div>
+    </div>
+
+</div>
+
+<div class="container-fluid">
+
+    <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+    <div class="row col-md-12 form-inline" style="margin-left: 325px"><!--一行显示-->
+        <select id="year" class="selectpicker bla bla bli"  data-live-search="false">
+            <option selected>选择统计年份</option>
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+            <option>2018</option>
+            <option>2019</option>
+
+        </select>
+
+
+        <div class="form-group">
+            <button class="btn btn-info" id="btnSearch2" onclick="hh()"tabindex="4">
+                <span class="glyphicon glyphicon-search"></span>
+                统计
+            </button>
+        </div>
+        <div id="chartmain" style="width:800px; height: 600px;margin-left: -200px"></div>
+
+    </div>
+
+</div>
+
+
+</body>

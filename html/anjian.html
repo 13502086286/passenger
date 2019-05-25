@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>民航失信人数年份统计</title>
+    <title>安检</title>
 
     <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../js/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
@@ -35,7 +35,7 @@
 
             $("#tb").bootstrapTable({
                 locale: 'zh-cn',
-                url: 'http://localhost:8347/program_ssm_war/ ',
+                url: 'http://localhost:8347/program_ssm_war/findsafecheck',
                 method: 'post',
                 pagination: true,
                 singleSelect: false,
@@ -43,78 +43,76 @@
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 queryParams:function (param) {
                     return {
-                        'month1':$("#txtmanth1").val(),
-                        'month2':$("#txtmonth2").val()
+                        'name':$("#txtUserName").val(),
+                        'id_num':$("#txtUserID").val()
 
                     };
                 },
 
+
                 columns: [
+                    {checkbox: true},//加一列用于选择
+                    {field: 'name', title: '旅客姓名', halign: 'center'},
+                    {field: 'id_num', title: '证件号码', halign: 'center'},
 
-                    {field: 'month1 ', title: '月份1', halign: 'center'},
-                    {field: 'month2 ', title: '月份2', halign: 'center'},
 
-                    {field: 'number', title: '月份2较月份1变化情况', halign: 'center'},
+
+
                 ],
-
-
 
             });
         }
-        function ceshi() {
-            location.href=" "
-        }
+
 
 
     </script>
 
 
 </head>
+
 <body style="background: url(/../image/渐变.jpg)">
 <div class="container-fluid">
     <div class="row" >
         <div class="col-md-12 ">
             <h1 style="float: left; margin-top: -10px;">
-                <span style="font-size: 45px;margin-left: 400px ;position:relative; font-family:'隶书';"><font color="red">民航失信人数年份统计</font></span>
+                <span style="font-size: 45px;margin-left: 400px ;position:relative; font-family:'隶书';"><font color="red">安检人员查询界面</font></span>
             </h1>
         </div>
     </div>
     <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
-    <div class="row col-md-12 form-inline"style="margin-left: 355px"><!--一行显示-->
+    <div class="row col-md-12 form-inline"><!--一行显示-->
         <div class="form-group">
-            <label class="control-label" for="spanmonth1">月份1：</label>
-            <span id="spanmonth1">
-                   <input type="text"   class="form-control" id="txtmonth1" >
+            <label class="control-label" for="spanUserName">用户姓名：</label>
+            <span id="spanUserName">
+                   <input type="text"   class="form-control" id="txtUserName" >
                 </span>
         </div>
-
-        <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
-        <div class="row col-md-12 form-inline"><!--一行显示-->
-            <div class="form-group">
-                <label class="control-label" for="spanmonth2">月份2：</label>
-                <span id="spanmonth2">
-                   <input type="text"   class="form-control" id="txtmonth2" >
+        <div class="form-group">
+            <label class="control-label" for="spanUserName">身份证号：</label>
+            <span id="spanUserID">
+                   <input type="text"   class="form-control" id="txtUserID" >
                 </span>
-            </div>
-
-
-            <div class="form-group">
-                <button class="btn btn-info" id="btnSearch">
-                    <span class="glyphicon glyphicon-search"></span>
-                    统计
-                </button>
-            </div>
         </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-        <div class="row  col-md-6 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
 
-        <div class="row col-md-6"style="margin-left: -700px;margin-top: 15px">
-            <table id="tb"></table>
+        <div class="form-group">
+            <button class="btn btn-info" id="btnSearch">
+                <span class="glyphicon glyphicon-search"></span>
+                查询
+            </button>
         </div>
+    </div>
 
+    <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+
+    <div class="row col-md-12">
+        <table id="tb"></table>
     </div>
 
 </div>
 
 
+
 </body>
+</html>

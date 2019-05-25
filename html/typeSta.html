@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>民航不文明行为统计</title>
+
+    <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css">
+    <link rel="stylesheet" href="../css/style.css" media="screen" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
+
+    <script src="../js/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../js/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../js/bower_components/bootbox/bootbox.js"></script>
+    <script src="../js/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="../js/bower_components/bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
+    <script src="../js/bower_components/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="../js/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+    <script src="../js/bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script src="../js/bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/echarts.js"></script>
+
+    <script language="JavaScript">
+        var gbid = "";
+        $(function () {//入口函数
+            moment.locale("zh-cn");
+            $("#btnSearch").click(function () {
+                myTable();
+            });
+        });
+
+        function myTable() {//删除后直接刷新
+            $("#tb").bootstrapTable("destroy");
+            $("#tb").bootstrapTable({
+                locale: 'zh-cn',
+                url: 'http://localhost:8347/program_ssm_war/tongjiType',
+                method: 'post',
+                pagination: true,
+                singleSelect: false,
+                clickToSelect: false,
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+
+
+
+                queryParams: function (param) {
+                    return {
+                        'type':$("#sltType").val()
+
+                    };
+                },
+
+
+                columns: [
+                    {field: 'data', title: '该类型不文明人数', halign: 'center'},
+                ],
+            });
+        }
+
+        $(function () {//入口函数
+            moment.locale("zh-cn");
+            $("#btnSearch2").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8347/program_ssm_war/tongjiType2",
+                    dataType: "json",
+                    success: function (data) {
+                        //指定图标的配置和数据
+                        var option = {
+                            title: {
+                                text: '不文明行为类型统计：'
+                            },
+                            series: [{
+                                name: '行为类型',
+                                type: 'pie',
+                                radius: '60%',
+                                data: data
+                            }]
+                        };
+                        //初始化echarts实例
+                        var myChart = echarts.init(document.getElementById('chartmain'));
+                        //使用制定的配置项和数据显示图表
+                        myChart.setOption(option);
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+</head>
+<body style="background: url(/../image/渐变.jpg)">
+
+<div class="container-fluid">
+
+    <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+    <div class="row col-md-12 form-inline" style="margin-left: 455px"><!--一行显示-->
+        <div class="row col-md-12 form-inline"><!--一行显示-->
+            <select id="sltType" class="selectpicker bla bla bli"  data-live-search="false">
+                <option selected>选择不文明行为类型</option>
+                <option>堵塞、强占、冲击值机柜台、安检通道、登机口（通道）的</option>
+                <option>强行登占、拦截航空器，强行闯入或冲击航空器驾驶舱、跑道和机坪的</option>
+                <option>妨碍或煽动他人妨碍机组、安检、值机等民航工作人员履行职责，实施或威胁实施人身攻击的</option>
+                <option>在航空器内使用明火、吸烟、违规使用电子设备，不听劝阻的</option>
+                <option>随身携带或托运国家法律、法规规定的危险品、违禁品和管制物品的；在随身携带或托运行李中故意藏匿国家规定以外属于民航禁止、限制运输物品的</option>
+                <option>使用伪造、变造或冒用他人乘机身份证件、乘机凭证的</option>
+
+            </select>
+
+
+            <div class="form-group">
+                <button class="btn btn-info" id="btnSearch">
+                    <span class="glyphicon glyphicon-search"></span>
+                    统计
+                </button>
+            </div>
+        </div>
+        <div class="row  col-md-6 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
+        <div class="row col-md-3" style="margin-left: -750px;margin-top: 15px">
+            <table id="tb"></table>
+        </div>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-info" id="btnSearch2">
+            <span class="glyphicon glyphicon-search"></span>
+            转成扇形图
+        </button>
+    </div>
+    <div id="chartmain" style="width:800px; height: 600px;margin-left: 250px"></div>
+
+
+</div>
+
+
+
+</body>

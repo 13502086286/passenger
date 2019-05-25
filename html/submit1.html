@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="<%=contextPath %>/common/images/zfdx.ico" rel="shortcut icon" type="image/x-icon" media="screen">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="<%=contextPath %>/common/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="<%=contextPath %>/common/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="<%=contextPath %>/common/css/ace.min.css" />
+    <link rel="stylesheet" href="<%=contextPath %>/common/css/common.css" />
+    <!--[if lt IE 9]>
+    <script src="<%=contextPath %>/common/js/html5shiv.js"></script>
+    <script src="<%=contextPath %>/common/js/respond.min.js"></script>
+    <![endif]-->
+
+    <!--[if IE 7]>
+    <link rel="stylesheet" href="<%=contextPath %>/common/css/font-awesome-ie7.min.css" />
+    <![endif]-->
+    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="<%=contextPath %>/common/css/ace-ie.min.css" />
+    <![endif]-->
+
+
+    <script type="text/javascript">
+        function queryAllUser(pageNum, pageSize) {
+            window.location.href="<%=contextPath %>/listUser.action?pageNum=" + pageNum + "&pageSize="+ pageSize;
+        }
+    </script>
+</head>
+<body class="overflow-body">
+
+            <form class="form-horizontal" method="post" action="<%=contextPath %>/excelUser.action" enctype="multipart/form-data">
+                <div class="col-2">
+                    <input type="file" name="file"  class="form-control">
+                </div>
+
+                <div class="col-2">
+                    <button class="btn btn-sm btn-info margin-left10"><i class="icon-search bigger-110"></i>excel批量导入学生</button>
+                </div>
+
+                <div class="form-group">
+
+
+                    <!-- <button type="button" class="btn btn-sm btn-info" id="chuangjian"><i class="icon-ok bigger-110"></i>创建</button>  -->
+                </div>
+            </form>
+
+</body>
+</html>

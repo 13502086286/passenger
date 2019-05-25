@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>铁路失信</title>
+    <title>售票</title>
 
     <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../js/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
@@ -35,7 +35,7 @@
 
             $("#tb").bootstrapTable({
                 locale: 'zh-cn',
-                url: 'http://localhost:8347/program_ssm_war/findrailway ',
+                url: 'http://localhost:8347/program_ssm_war/findticket',
                 method: 'post',
                 pagination: true,
                 singleSelect: false,
@@ -44,15 +44,18 @@
                 queryParams:function (param) {
                     return {
                         'name':$("#txtUserName").val(),
-                        'idnum':$("#txtUserID").val()
+                        'id_num':$("#txtUserID").val()
 
                     };
                 },
 
+
                 columns: [
                     {checkbox: true},//加一列用于选择
                     {field: 'name', title: '旅客姓名', halign: 'center'},
-                    {field: 'idnum', title: '证件号码', halign: 'center'},
+                    {field: 'id_num', title: '证件号码', halign: 'center'},
+                    {field: 'desc', title: '不可售票原因', halign: 'center'},
+                    {field: 'enddate', title: '开放售票日期', halign: 'center'},
 
 
 
@@ -74,7 +77,7 @@
     <div class="row" >
         <div class="col-md-12 ">
             <h1 style="float: left; margin-top: -10px;">
-                <span style="font-size: 45px;margin-left: 400px ;position:relative; font-family:'隶书';"><font color="red">铁路严重失信人公示</font></span>
+                <span style="font-size: 45px;margin-left: 400px ;position:relative; font-family:'隶书';"><font color="red">售票人员查询界面</font></span>
             </h1>
         </div>
     </div>

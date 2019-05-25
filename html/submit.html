@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传最新数据</title>
+    <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+
+    <script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <!--<script type="application/javascript" src="../../js/rfq_header.js"></script>-->
+    <script type="text/javascript">
+        //JS校验form表单信息
+        $(document).ready(function(){
+            $("#btn").click(function(){
+
+                    $.ajaxFileUpload({
+                        url:"http://localhost:8347/program_ssm_war/submit",
+                        type:"POST",
+                        dataType: "text",
+                        fileElementId :"upfile",
+                        success:function (data) {
+                            //alert(data);
+                            console.log(data);
+                            $("#upfile").val("");
+                        },
+                        error:function(erro){
+                            console.log(erro);
+                        }
+                    });
+
+            });
+        });
+
+    </script>
+
+
+
+</head>
+<body style="background: url(/../image/渐变.jpg)">
+<td> <input id="upfile"style="margin-left: 500px" type="file" name="upfile" accept=".xls,.xlsx" /></td>
+<div class="form-group"style="margin-left: 500px;margin-top: 50px">
+    <button class="btn btn-info" id="btn">
+        <span class="glyphicon glyphicon-search"></span>
+        提交
+    </button>
+</div>
+
+
+</body>
+</html>

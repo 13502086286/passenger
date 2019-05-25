@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>铁路失信</title>
+    <title>综合查询</title>
 
     <link rel="stylesheet" href="../js/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../js/bower_components/bootstrap-select/dist/css/bootstrap-select.css">
@@ -43,7 +43,8 @@
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 queryParams:function (param) {
                     return {
-                        'name':$("#txtUserName").val()
+                        'name':$("#txtUserName").val(),
+                        'id_num':$("#txtUserID").val()
 
                     };
                 },
@@ -52,7 +53,7 @@
                     {checkbox: true},//加一列用于选择
                     {field: 'name', title: '旅客姓名', halign: 'center'},
                     {field: 'id_num', title: '证件号码', halign: 'center'},
-                    {field:  ' ',title:'是否仍处在限制期间',halign:'center'}
+
 
 
                 ],
@@ -74,7 +75,8 @@
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 queryParams:function (param) {
                     return {
-                        'name':$("#txtUserName").val()
+                        'name':$("#txtUserName").val(),
+                        'idnum':$("#txtUserID").val()
 
                     };
                 },
@@ -104,7 +106,8 @@
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
                 queryParams:function (param) {
                     return {
-                        'name':$("#txtUserName").val()
+                        'name':$("#txtUserName").val(),
+                        'idnum':$("#txtUserID").val()
 
                     };
                 },
@@ -143,10 +146,16 @@
     </div>
     <div class="row  col-md-12 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
     <div class="row col-md-12 form-inline"><!--一行显示-->
-        <div class="form-group"style="margin-left:350px">
+        <div class="form-group"style="margin-left:150px">
             <label class="control-label" for="spanUserName">用户姓名：</label>
             <span id="spanUserName">
                    <input type="text"   class="form-control" id="txtUserName" >
+                </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="spanUserName">身份证号：</label>
+            <span id="spanUserID">
+                   <input type="text"   class="form-control" id="txtUserID" >
                 </span>
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -163,19 +172,19 @@
 
     <label class="control-label" for="tb1"style="margin-top: 5px"><span style="color: #2f96b4 ;font-size:25px">民航失信记录：</span></label>
     <div class="row  col-md-13 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
-        <div class="row col-md-6">
+        <div class="row col-md-6"style="margin-left: -180px">
             <table id="tb1"></table>
         </div>
     <div class="row  col-md-13 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
     <label class="control-label2" for="tb2"style="margin-top: 10px"><span style="color: #2f96b4 ;font-size:25px">法院失信记录：</span></label>
     <div class="row  col-md-13 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
-    <div class="row col-md-6">
+    <div class="row col-md-6"style="margin-left: -180px">
         <table id="tb2"></table>
     </div>
     <div class="row  col-md-13 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
     <label class="control-label2" for="tb3"style="margin-top: 10px"><span style="color: #2f96b4 ;font-size:25px">铁路失信记录：</span></label>
     <div class="row  col-md-13 form-inline" style="vertical-align: middle; margin-top: 15px;"></div>
-    <div class="row col-md-6">
+    <div class="row col-md-6"style="margin-left: -180px">
         <table id="tb3"></table>
     </div>
 </div>

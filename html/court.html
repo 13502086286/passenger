@@ -20,7 +20,7 @@
     <script src="../js/bower_components/moment/min/moment-with-locales.min.js"></script>
     <script src="../js/bower_components/bootstrap-table/dist/locale/bootstrap-table-zh-CN.min.js"></script>
     <script language="JavaScript">
-        var gbid="";
+        var gbid = "";
         $(function () {//入口函数
             moment.locale("zh-cn");
 
@@ -30,6 +30,7 @@
 
             });
         });
+
         function myTable() {//删除后直接刷新
             $("#tb").bootstrapTable("destroy");
 
@@ -41,9 +42,10 @@
                 singleSelect: false,
                 clickToSelect: false,
                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                queryParams:function (param) {
+                queryParams: function (param) {
                     return {
-                        'name':$("#txtUserName").val()
+                        'name': $("#txtUserName").val(),
+                        'idnum': $("#txtUserID").val()
 
                     };
                 },
@@ -54,16 +56,15 @@
                     {field: 'idnum', title: '证件号码', halign: 'center'},
 
 
-
-                   /* {
-                        //放在最后选中一行
-                        title: '操作',
-                        halign: 'center',//居中对齐
-                        align: 'right',//左对齐
-                        formatter: function (value, row, index) {//把按钮绑上
-                            return "<button onclick='ceshi()' class='btn btn-warning'>编辑</button>";
-                        }
-                    }*/
+                    /* {
+                         //放在最后选中一行
+                         title: '操作',
+                         halign: 'center',//居中对齐
+                         align: 'right',//左对齐
+                         formatter: function (value, row, index) {//把按钮绑上
+                             return "<button onclick='ceshi()' class='btn btn-warning'>编辑</button>";
+                         }
+                     }*/
                 ],
                 onClickRow: function (row) {
                     //bootbox.alert(row.bid);
@@ -71,8 +72,9 @@
                 }
             });
         }
+
         function ceshi() {
-            location.href=" "
+            location.href = " "
         }
 
 
@@ -83,10 +85,11 @@
 
 <body style="background: url(/../image/渐变.jpg)">
 <div class="container-fluid">
-    <div class="row" >
+    <div class="row">
         <div class="col-md-12 ">
             <h1 style="float: left; margin-top: -10px;">
-                <span style="font-size: 45px;margin-left: 400px ;position:relative; font-family:'隶书';"><font color="red">法院严重失信人公示</font></span>
+                <span style="font-size: 45px;margin-left: 400px ;position:relative; font-family:'隶书';"><font
+                        color="red">法院严重失信人公示</font></span>
             </h1>
         </div>
     </div>
@@ -95,7 +98,13 @@
         <div class="form-group">
             <label class="control-label" for="spanUserName">用户姓名：</label>
             <span id="spanUserName">
-                   <input type="text"   class="form-control" id="txtUserName" >
+                   <input type="text" class="form-control" id="txtUserName">
+                </span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="spanUserName">身份证号：</label>
+            <span id="spanUserID">
+                   <input type="text" class="form-control" id="txtUserID">
                 </span>
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -116,7 +125,6 @@
     </div>
 
 </div>
-
 
 
 </body>
